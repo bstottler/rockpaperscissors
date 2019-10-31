@@ -43,11 +43,8 @@
                     default : alert('invalid entry!')
                }
            }
-           function game() {console.log(playRound(playerPlay(), computerPlay()));
-            console.log(playRound(playerPlay(), computerPlay()));
-            console.log(playRound(playerPlay(), computerPlay()));
-            console.log(playRound(playerPlay(), computerPlay()));
-            console.log(playRound(playerPlay(), computerPlay()));
+           function game() { while ((computerScore + playerScore) < 5 ) {console.log(playRound(playerPlay(), computerPlay())) };
+
             console.log('Computer: ' + computerScore + ': User: ' + playerScore)
            }
 
