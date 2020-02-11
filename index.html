@@ -4,60 +4,72 @@
         <title>Rock Paper Scissors</title>
     </head>
     <body>
+        <button id='rock'>rock</button>
+        <button id='paper'>paper</button>
+        <button id='scissors'>scissors</button>
+        <div>Your Score: <span id='pScore'>0</span></br>Computer Score: <span id='cScore'>0</span> </br></div>
+        <div id='roundResult'></div>
         <script>
-            let playerScore = 0;
-            let computerScore = 0;
-            let ties = 0;
-
-           function computerPlay() {
-               let computerTurn = Math.floor(Math.random() * 3 + 1 );
-               if (computerTurn === 1) {return 'Rock'
-                } else if (computerTurn === 2) {return 'Paper'
-                } else {return 'Scissors'} ;
-           }
-           function playerPlay() {
-               let playerTurn = prompt('Rock, Paper, or Scissors?', '')
-              return playerTurn
-           }
-           function playRound(playerSelection, computerSelection) {
-               let playerTurn = playerSelection.toLowerCase();
-               let computerTurn = computerSelection.toLowerCase();
-               
-               switch(playerTurn) {
-                   case 'rock' : if (computerTurn === 'scissors') { playerScore++;
-                   return 'You win: ' + playerTurn + ' beats ' + computerTurn + '!';
-                    } else if (computerTurn === 'paper') { computerScore++;
-                    return 'You lose: ' + computerTurn + ' beats ' + playerTurn + '!';
-                     } else if (computerTurn === 'rock') { ties++; 
-                     return 'It\'s a tie!' };
-                   break;
-                   case 'paper' : if (computerTurn === 'rock') { playerScore++;
-                   return 'You win: ' + playerTurn + ' beats ' + computerTurn + '!';
-                    } else if (computerTurn === 'scissors') { computerScore++;
-                    return 'You lose: ' + computerTurn + ' beats ' + playerTurn + '!';
-                     } else if (computerTurn === 'paper') { ties++;
-                     return 'It\'s a tie!' };
-                   break;
-                   case 'scissors' : if (computerTurn === 'paper') { playerScore++;
-                   return 'You win: ' + playerTurn + ' beats ' + computerTurn + '!';
-                    } else if (computerTurn === 'rock') { computerScore++;
-                    return 'You lose: ' + computerTurn + ' beats ' + playerTurn + '!';
-                    } else if (computerTurn === 'scissors') {ties++;
-                    return 'It\'s a tie!' };
-                    break; 
-                    default : alert('invalid entry!')
+                let playerScore = 0;
+                let computerScore = 0;
+                let ties = 0;
+                let computerTurn;
+                let playerTurn;
+    
+               function playRound(e) {
+                   playerTurn = e.target.id.toLowerCase();
+                    
+                   computerTurn = Math.floor(Math.random() * 3 + 1 );
+                   if (computerTurn === 1) {computerTurn = 'rock'
+                    } else if (computerTurn === 2) {computerTurn = 'paper'
+                    } else if (computerTurn === 3) {computerTurn = 'scissors'} ;
+                   
+                   switch(playerTurn) {
+                       case 'rock' : if (computerTurn === 'scissors') { playerScore++;
+                       return 'You win: ' + playerTurn + ' beats ' + computerTurn + '!';
+                        } else if (computerTurn === 'paper') { computerScore++;
+                        return 'You lose: ' + computerTurn + ' beats ' + playerTurn + '!';
+                         } else if (computerTurn === 'rock') { ties++; 
+                         return 'It\'s a tie!' };
+                       break;
+                       case 'paper' : if (computerTurn === 'rock') { playerScore++;
+                       return 'You win: ' + playerTurn + ' beats ' + computerTurn + '!';
+                        } else if (computerTurn === 'scissors') { computerScore++;
+                        return 'You lose: ' + computerTurn + ' beats ' + playerTurn + '!';
+                         } else if (computerTurn === 'paper') { ties++;
+                         return 'It\'s a tie!' };
+                       break;
+                       case 'scissors' : if (computerTurn === 'paper') { playerScore++;
+                       return 'You win: ' + playerTurn + ' beats ' + computerTurn + '!';
+                        } else if (computerTurn === 'rock') { computerScore++;
+                        return 'You lose: ' + computerTurn + ' beats ' + playerTurn + '!';
+                        } else if (computerTurn === 'scissors') {ties++;
+                        return 'It\'s a tie!' };
+                        break; 
+                        default : alert('invalid entry!')
+                   }
                }
-           }
-           function game() { while ((computerScore + playerScore + ties) < 5 ) {console.log(playRound(playerPlay(), computerPlay())) };
-            console.log('Computer: ' + computerScore + ': User: ' + playerScore);
-            if (computerScore < playerScore) {console.log('You win the game!')
-            } else if (computerScore > playerScore ) {console.log('Computer wins the game!')
-            } else {console.log('it\'s a tie!')}
-           }
 
-           game();
-           
-
-       </script>
-    </body>
-</html>
+               const buttons = document.querySelectorAll('button');
+               buttons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                roundResult.textContent = playRound(e);
+                const pchoice = document.createElement('div');
+                const cchoice = document.createElement('div');
+                if (computerScore == 5) {alert('Computer Wins the Game!');
+                    computerScore = 0;
+                    playerScore = 0;}
+                else if (playerScore == 5) {alert('You Win the Game!');
+                    computerScore = 0;
+                    playerScore = 0;}
+                pScore.innerHTML = playerScore;
+                cScore.innerHTML = computerScore;
+                pchoice.textContent = 'Your choice: ' + playerTurn;
+                cchoice.textContent = 'Computer choice: ' + computerTurn;
+                roundResult.appendChild(pchoice);
+                pchoice.appendChild(cchoice);
+                });
+                });
+           </script>
+        </body>
+    </html>
